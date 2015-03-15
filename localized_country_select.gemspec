@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/mlitwiniuk/localized_country_select'
   gem.license       = 'MIT'
 
-  gem.files       = `git ls-files`.split('\n') - %w(localized_country_select.gemspec Gemfile init.rb)
+  gem.files       = `git ls-files`.split("\n") - %w(localized_country_select.gemspec Gemfile init.rb)
   gem.executables   = gem.files.grep(/^bin\//).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(/^(test|spec|features)\//)
   gem.name          = 'localized_country_select'
