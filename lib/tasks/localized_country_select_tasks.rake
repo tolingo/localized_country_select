@@ -136,7 +136,7 @@ TAIL
         document.search("//tr").inject({}) do |hash, row|
           n = row.search("td[@class='n']")
           g = row.search("td")
-          if n.inner_html =~ /NamesTerritories/ && g.count >= 6 && g[4].inner_html =~ /^[A-Z]{2}/
+          if n.inner_html =~ /Locale Display Names/ && g.count >= 6 && g[4].inner_html =~ /^[A-Z]{2}/
             code = g[4].inner_text
             code = code[-code.size, 2].to_sym
             name = row.search("td[@class='v']:not([@title])").inner_text
@@ -163,7 +163,7 @@ TAIL
         document.find("//tr").inject({}) do |hash, row|
           n = row.find("td[@class='n']")
           g = row.find("td")
-          if n.map(&:content).join =~ /NamesTerritories/ && g.count >= 6 && g[4].inner_xml =~ /^[A-Z]{2}/
+          if n.map(&:content).join =~ /Locale Display Names/ && g.count >= 6 && g[4].inner_xml =~ /^[A-Z]{2}/
             code = g[4].content
             code = code[-code.size, 2].to_sym
             name = row.find("td[@class='v' and not(@title)]").map(&:content).join
