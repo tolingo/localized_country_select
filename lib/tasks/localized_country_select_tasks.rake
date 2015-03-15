@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'open-uri'
 require 'active_support/inflector'
+require 'csv'
 
 # Rake task for importing country names from Unicode.org's CLDR repository
 # (http://www.unicode.org/cldr/data/charts/summary/root.html).
@@ -56,9 +57,14 @@ namespace :import do
 
     set_parser(ENV['PARSER']) if ENV['PARSER']
     puts "... parsing the HTML file using #{parser.name.split("::").last}"
-    countries = parser.parse(html).inject([]) { |arr, (code, attrs)| arr << attrs }
+    countries = parser.parse(html).inject([]) { |arr, (_code, attrs)| arr << attrs }
     countries.sort_by! { |c| c[:code] }
+    puts '... fetching correct list of country codes and filtering translations'
+    correct_list = CSV.parse(open('https://raw.githubusercontent.com/datasets/un-locode/master/data/country-codes.csv').string)
+    country_codes = correct_list.map { |c| c[0] }
+    countries.delete_if { |c| !country_codes.member?(c[:code].to_s) }
     puts "\n\n... imported #{countries.count} countries:"
+
     puts countries.map { |c| "#{c[:code]}: #{c[:name]}" }.join(", ")
 
 
