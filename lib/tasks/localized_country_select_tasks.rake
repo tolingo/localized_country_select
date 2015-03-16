@@ -142,7 +142,7 @@ TAIL
         document.search("//tr").inject({}) do |hash, row|
           n = row.search("td[@class='n']")
           g = row.search("td")
-          if n.inner_html =~ /Locale Display Names/ && g.count >= 6 && g[4].inner_html =~ /^[A-Z]{2}/
+          if n.inner_html =~ /Locale Display Names/ && g.count >= 6 && g[4].inner_html =~ /^[A-Z]{2}$/
             code = g[4].inner_text
             code = code[-code.size, 2].to_sym
             name = row.search("td[@class='v']:not([@title])").inner_text
